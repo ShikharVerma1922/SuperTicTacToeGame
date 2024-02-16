@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+} /*  to remove the top and left whitespace */
+* html,
+body {
+  width: 100%;
+  height: 100%;
+} /* just to be sure these are full screen*/
+
+#turn {
+  margin: auto;
+  font-size: 200%;
+  font-weight: 900;
+}
+#winner {
+  margin: auto;
+  font-size: 200%;
+  font-weight: 900;
+}
+canvas {
+  margin: auto;
+} /*To remove the scrollbars */
+
+h1 {
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+@media only screen and (min-width: 600px) {
+  #container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+  canvas {
+    background-color: white;
+    order: 1;
+  }
+  #turn {
+    margin: auto;
+    order: 2;
+  }
+  #winner {
+    margin: auto;
+    order: 3;
+  }
+  #container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+  }
+}
