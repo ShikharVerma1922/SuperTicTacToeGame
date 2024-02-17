@@ -220,8 +220,10 @@ let block11List = new Array(9),
       ctx.fill();
       turn = 1;
     }
-    if (temp == 99) squareFrame("black", cellSize, topLeftX, topLeftY);
-
+    if (temp == 99) {
+      squareFrame("black", cellSize, topLeftX, topLeftY);
+      cellBoardPop("black", cellSize, topLeftX, topLeftY);
+    }
     canvas.addEventListener("mousedown", doMouseDown, false);
     function doMouseDown(event) {
       const rect = canvas.getBoundingClientRect();
@@ -727,15 +729,15 @@ let block11List = new Array(9),
       }
     }
   function playerTurnFunction(turn) {
-    if (turn == 1) {
+    if (turn == 1 && !gameEnd) {
       playerTurn.innerHTML = "Turn : X";
-    } else if (turn == 0) {
+    } else if (turn == 0 && !gameEnd) {
       playerTurn.innerHTML = "Turn : O";
     }
   }
   function whoWonCondition1(x) {
-    if (superBlockList[x] == 1) winner.innerHTML = "Winner : Player X";
-    else if (superBlockList[x] == 2) winner.innerHTML = "Winner : Player O";
+    if (superBlockList[x] == 1) playerTurn.innerHTML = "Winner : Player X";
+    else if (superBlockList[x] == 2) playerTurn.innerHTML = "Winner : Player O";
     gameEnd = true;
   }
   function whoWonCondition2() {
@@ -752,16 +754,16 @@ let block11List = new Array(9),
       if (j == 9 || superBlockList[i] != undefined) totalFilledBlocks++;
     }
     if (totalBigX == 5 || (totalBigX > totalBigO && totalFilledBlocks == 9)) {
-      winner.innerHTML = "Winner : Player X";
+      playerTurn.innerHTML = "Winner : Player X";
       gameEnd = true;
     } else if (
       totalBigO == 5 ||
       (totalBigO > totalBigX && totalFilledBlocks == 9)
     ) {
-      winner.innerHTML = "Winner : Player O";
+      playerTurn.innerHTML = "Winner : Player O";
       gameEnd = true;
     } else if (totalBigX == totalBigO && totalFilledBlocks == 9) {
-      winner.innerHTML = "Result : Tied";
+      playerTurn.innerHTML = "Game Draw";
       gameEnd = true;
     }
   }
