@@ -769,16 +769,16 @@ let block11List = new Array(9),
       }
       if (j == 9 || superBlockList[i] != undefined) totalFilledBlocks++;
     }
-    if (totalBigX == 5 || (totalBigX > totalBigO && totalFilledBlocks == 9)) {
+    if ((totalBigX == 5 || (totalBigX > totalBigO && totalFilledBlocks == 9)) && !gameEnd){
       playerTurn.innerHTML = "Winner : Player X";
       gameEnd = true;
-    } else if (
+    } else if ((
       totalBigO == 5 ||
-      (totalBigO > totalBigX && totalFilledBlocks == 9)
+      (totalBigO > totalBigX && totalFilledBlocks == 9)) && !gameEnd
     ) {
       playerTurn.innerHTML = "Winner : Player O";
       gameEnd = true;
-    } else if (totalBigX == totalBigO && totalFilledBlocks == 9) {
+    } else if (totalBigX == totalBigO && totalFilledBlocks == 9 && !gameEnd) {
       playerTurn.innerHTML = "Game Draw";
       gameEnd = true;
     }
