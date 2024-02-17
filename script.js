@@ -437,7 +437,7 @@ let block11List = new Array(9),
           !checkAllCells(temp)) ||
           (superBlockList[temp] != undefined &&
             superBlockList[blockNum] == undefined &&
-            !checkAllCells(temp)) ||
+            !checkAllCells(blockNum)) ||
           (checkAllCells(temp) &&
             temp != blockNum &&
             superBlockList[blockNum] == undefined)) &&
