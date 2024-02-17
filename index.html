@@ -14,7 +14,29 @@
       <canvas id="myCanvas"></canvas>
 
       <div id="note"><p>(Each Player take turn clicking on any empty squares of black
-          tic-tac-toe board)</p></div>
+          tic-tac-toe board)</p>
+      </div>
+    </div>
+    <div class="center">
+      <button id="myBtn">Click to know the rules</button>
+    </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Rules:<br><br></h3>
+        <p>
+          <ul>
+            <li>Players take turn marking a X or an O on each empty squares</li>
+            <li> The game starts with X playing wherever they want in any of the 81 empty spots</li>
+            <li> Next the opponent plays, however they are forced to play in the small board indicated by the relative location of the previous move</li>
+            <li>If a move is played so that it is to win a small board by the rules of normal tic-tac-toe, then the entire small board is marked as won by the player in the larger board</li>
+            <li>Once a small board is won by a player or it is filled completely, no more moves may be played in that board</li>
+            <li>If a player is sent to such a board, then that player may play in any other board</li>
+            <li><p>Game play ends when either a player wins the larger board or wins more small boards than the other or there are no legal moves remaining, in which case the game is a draw</p></li>
+          </ul>
+        </p>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
