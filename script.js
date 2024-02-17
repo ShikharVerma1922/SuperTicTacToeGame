@@ -1,5 +1,5 @@
 let cd;
-let temp = 99;
+let temp = 99; //valid block to play 
 let gameEnd;
 let blockList = [];
 let superBlockList = new Array(9);
@@ -19,7 +19,6 @@ let block11List = new Array(9),
   block33List = new Array(9);
 
 (function () {
-  // resize the canvas to fill browser window dynamically
   window.addEventListener("resize", resizeCanvas, false);
 
   function resizeCanvas() {
@@ -31,11 +30,6 @@ let block11List = new Array(9),
       canvas.height = (window.innerHeight * 9) / 10;
     }
     canvas.style.border = "1px solid #000000";
-
-    /**
-     * Your drawings need to be inside this function otherwise they will be reset when
-     * you resize the browser window and the canvas goes will be cleared.
-     */
     drawLine();
     drawBoard(drawLine);
     ticTacToe(drawLine, cd / 3, 0, 0, 0, 0);
@@ -79,8 +73,6 @@ let block11List = new Array(9),
   }
 
   function drawBoard(drawLine) {
-    // Code to create a SuperTicTacToe board!
-
     if (window.innerWidth < window.innerHeight) {
       cd = (window.innerWidth * 9) / 10;
     } else {
@@ -184,9 +176,7 @@ let block11List = new Array(9),
     }
 
     function drawX(x, y) {
-      //here x & y are the top left coordinate of a square of the grid
       ctx.beginPath();
-      //1st line of cross
       drawLine(
         x + cellSize * 0.06,
         y + cellSize * 0.06,
@@ -196,7 +186,6 @@ let block11List = new Array(9),
         "green",
         "round"
       );
-      //2nd line of cross
       drawLine(
         x + cellSize / 3 - cellSize * 0.06,
         y + cellSize * 0.06,
@@ -239,7 +228,6 @@ let block11List = new Array(9),
       const canvs_x = event.clientX - rect.left;
       const canvs_y = event.clientY - rect.top;
 
-      // Defining the blocks
       let block11 =
         canvs_x > topLeftX &&
         canvs_x < topLeftX + cellSize / 3 &&
@@ -444,10 +432,10 @@ let block11List = new Array(9),
         !gameEnd
       ) {
         squareFrame("black", cellSize, topLeftX, topLeftY);
-        // greyBlock("black", cellSize, topLeftX, topLeftY);
+        cellBoardPop("black", cellSize, topLeftX, topLeftY);
       } else {
         squareFrame("white", cellSize, topLeftX, topLeftY);
-        // greyBlock("white", cellSize, topLeftX, topLeftY);
+        cellBoardPop("blue", cellSize, topLeftX, topLeftY);
       }
       gameLogic(blockNum, topLeftX, topLeftY, drawBigX, drawBigO, drawLine);
       playerTurnFunction(turn);
@@ -572,7 +560,6 @@ let block11List = new Array(9),
         superBlockList[blockNum] = 2;
       }
     }
-    // console.log(superBlockList);
     let superCondition1 =
       superBlockList[0] === superBlockList[1] &&
       superBlockList[0] === superBlockList[2] &&
@@ -716,6 +703,29 @@ let block11List = new Array(9),
     ctx.strokeStyle = color;
     ctx.stroke();
   }
+  function cellBoardPop(color, cellSize, topLeftX, topLeftY) {
+      for (let i = 1; i <= 2; i++) {
+        drawLine(
+          topLeftX + (cellSize / 3) * i,
+          topLeftY + cellSize * 0.06,
+          topLeftX + (cellSize / 3) * i,
+          topLeftY + cellSize - cellSize * 0.06,
+          cellSize * 0.036,
+          color,
+          "round"
+        );
+
+        drawLine(
+          topLeftX + cellSize * 0.06,
+          topLeftY + (cellSize / 3) * i,
+          topLeftX + cellSize - cellSize * 0.06,
+          topLeftY + (cellSize / 3) * i,
+          cellSize * 0.036,
+          color,
+          "round"
+        );
+      }
+    }
   function playerTurnFunction(turn) {
     if (turn == 1) {
       playerTurn.innerHTML = "Turn : X";
@@ -754,17 +764,6 @@ let block11List = new Array(9),
       winner.innerHTML = "Result : Tied";
       gameEnd = true;
     }
-  }
-  function greyBlock(color, cellSize, topLeftX, topLeftY) {
-    ctx.beginPath();
-    ctx.rect(
-      topLeftX + cellSize * 0.009,
-      topLeftY + cellSize * 0.009,
-      topLeftX + cellSize - cellSize * 0.018,
-      topLeftY + cellSize - cellSize * 0.018
-    );
-    ctx.fillStyle = color;
-    ctx.fill();
   }
   function checkAllCells(temp) {
     let i;
