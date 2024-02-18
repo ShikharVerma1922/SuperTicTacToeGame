@@ -26,6 +26,8 @@ const ctx = canvas.getContext("2d");
 const playerTurn = document.querySelector("#turn");
 const restart = document.querySelector("#restart");
 restart.addEventListener("click", refreshWindow, false);
+var gameStart = new Audio("sounds/game-start.mp3");
+gameStart.play();
 function refreshWindow() {
   window.location.reload(true);
 }
