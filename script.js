@@ -19,6 +19,7 @@ let temp = 99; //temp is index of valid block to play on
 let gameEnd;
 let blockList = [];
 let superBlockList = new Array(9);
+let wonSmallBoardList = new Array(9).fill(0);
 let turn = 1; //turn of player X
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
@@ -364,6 +365,7 @@ let block11List = new Array(9),
           blockList[blockNum][0] = 2;
         }
         temp = 0;
+        moveSound();
       } else if (block12) {
         if (turn === 1) {
           drawX(topLeftX + cellSize / 3, topLeftY);
@@ -373,6 +375,7 @@ let block11List = new Array(9),
           blockList[blockNum][1] = 2;
         }
         temp = 1;
+        moveSound();
       } else if (block13) {
         if (turn === 1) {
           drawX(topLeftX + (cellSize * 2) / 3, topLeftY);
@@ -382,6 +385,7 @@ let block11List = new Array(9),
           blockList[blockNum][2] = 2;
         }
         temp = 2;
+        moveSound();
       } else if (block21) {
         if (turn === 1) {
           drawX(topLeftX, topLeftY + cellSize / 3);
@@ -391,6 +395,7 @@ let block11List = new Array(9),
           blockList[blockNum][3] = 2;
         }
         temp = 3;
+        moveSound();
       } else if (block22) {
         if (turn === 1) {
           drawX(topLeftX + cellSize / 3, topLeftY + cellSize / 3);
@@ -400,6 +405,7 @@ let block11List = new Array(9),
           blockList[blockNum][4] = 2;
         }
         temp = 4;
+        moveSound();
       } else if (block23) {
         if (turn === 1) {
           drawX(topLeftX + (cellSize * 2) / 3, topLeftY + cellSize / 3);
@@ -409,6 +415,7 @@ let block11List = new Array(9),
           blockList[blockNum][5] = 2;
         }
         temp = 5;
+        moveSound();
       } else if (block31) {
         if (turn === 1) {
           drawX(topLeftX, topLeftY + (cellSize * 2) / 3);
@@ -418,6 +425,7 @@ let block11List = new Array(9),
           blockList[blockNum][6] = 2;
         }
         temp = 6;
+        moveSound();
       } else if (block32) {
         if (turn === 1) {
           drawX(topLeftX + cellSize / 3, topLeftY + (cellSize * 2) / 3);
@@ -427,6 +435,7 @@ let block11List = new Array(9),
           blockList[blockNum][7] = 2;
         }
         temp = 7;
+        moveSound();
       } else if (block33) {
         if (turn === 1) {
           drawX(topLeftX + (cellSize * 2) / 3, topLeftY + (cellSize * 2) / 3);
@@ -436,6 +445,7 @@ let block11List = new Array(9),
           blockList[blockNum][8] = 2;
         }
         temp = 8;
+        moveSound();
       }
       if (
         ((temp == blockNum &&
@@ -521,6 +531,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition2) {
       if (blockList[blockNum][3] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -529,6 +540,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition3) {
       if (blockList[blockNum][6] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -537,6 +549,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition4) {
       if (blockList[blockNum][0] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -545,6 +558,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition5) {
       if (blockList[blockNum][1] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -553,6 +567,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition6) {
       if (blockList[blockNum][2] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -561,6 +576,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition7) {
       if (blockList[blockNum][0] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -569,6 +585,7 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     } else if (condition8) {
       if (blockList[blockNum][2] == 1) {
         drawBigX(topLeftX, topLeftY);
@@ -577,7 +594,9 @@ let block11List = new Array(9),
         drawBigO(topLeftX, topLeftY);
         superBlockList[blockNum] = 2;
       }
+      wonSmallBoardList[blockNum]++;
     }
+    wonSmallBoardSound();
     let superCondition1 =
       superBlockList[0] === superBlockList[1] &&
       superBlockList[0] === superBlockList[2] &&
@@ -791,4 +810,32 @@ let block11List = new Array(9),
     if (i == 9) return true; //defined
     else return false;
   }
+  function moveSound() {
+      if (!gameEnd) {
+        var move = new Audio(
+          "sounds/move-self (online-audio-converter.com).mp3"
+        );
+        move.play();
+      }
+    }
+    function wonSmallBoardSound() {
+      for (let li = 0; li < 9; li++) {
+        if (
+          (superBlockList[li] == 1 || superBlockList[li] == 2) &&
+          wonSmallBoardList[li] == 1 &&
+          !gameEnd
+        ) {
+          var wonSmallBoard = new Audio(
+            "sounds/capture (online-audio-converter.com).mp3"
+          );
+          wonSmallBoard.play();
+        }
+      }
+      if (gameEnd) {
+        var gameEndSound = new Audio(
+          "sounds/game-end (online-audio-converter.com).mp3"
+        );
+        gameEndSound.play();
+      }
+    }
 })();
