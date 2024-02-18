@@ -670,7 +670,7 @@ let block11List = new Array(9),
         (cd * 5) / 6,
         cd * 0.06,
         (cd * 5) / 6,
-        cd * 0.06,
+        cd - cd * 0.06,
         cd * 0.06,
         "grey",
         "round"
