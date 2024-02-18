@@ -24,7 +24,11 @@ let turn = 1; //turn of player X
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const playerTurn = document.querySelector("#turn");
-const winner = document.querySelector("#winner");
+const restart = document.querySelector("#restart");
+restart.addEventListener("click", refreshWindow, false);
+function refreshWindow() {
+  window.location.reload(true);
+}
 let block11List = new Array(9),
   block12List = new Array(9),
   block13List = new Array(9),
@@ -243,6 +247,12 @@ let block11List = new Array(9),
     }
     canvas.addEventListener("mousedown", doMouseDown, false);
     function doMouseDown(event) {
+      if (gameEnd) restart.innerHTML = "NEW GAME";
+        else {
+          restart.innerHTML = "RESTART";
+          restart.classList.remove("instruction");
+          restart.classList.add("refreshBtn");
+        }
       const rect = canvas.getBoundingClientRect();
       const canvs_x = event.clientX - rect.left;
       const canvs_y = event.clientY - rect.top;
