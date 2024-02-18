@@ -813,7 +813,7 @@ let block11List = new Array(9),
   function moveSound() {
       if (!gameEnd) {
         var move = new Audio(
-          "sounds/move-self (online-audio-converter.com).mp3"
+          "sounds/move.mp3"
         );
         move.play();
       }
@@ -833,7 +833,7 @@ let block11List = new Array(9),
       }
       if (gameEnd) {
         var gameEndSound = new Audio(
-          "sounds/game-end (online-audio-converter.com).mp3"
+          "sounds/game-end.mp3"
         );
         gameEndSound.play();
       }
