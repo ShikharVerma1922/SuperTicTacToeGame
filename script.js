@@ -858,7 +858,7 @@ let block11List = new Array(9),
           wonSmallBoard.play();
         }
       }
-      if (gameEnd) {
+      if (gameEnd && legalMove == 1) {
         var gameEndSound = new Audio(
           "sounds/game-end.mp3"
         );
