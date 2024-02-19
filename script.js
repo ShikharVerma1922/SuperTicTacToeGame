@@ -610,7 +610,7 @@ let block11List = new Array(9),
       }
       wonSmallBoardList[blockNum]++;
     }
-    wonSmallBoardSound();
+    
     let superCondition1 =
       superBlockList[0] === superBlockList[1] &&
       superBlockList[0] === superBlockList[2] &&
@@ -733,6 +733,7 @@ let block11List = new Array(9),
       whoWonCondition1(2);
     }
     playerTurnFunction();
+    wonSmallBoardSound();
   }
   function squareFrame(color, cellSize, topLeftX, topLeftY) {
     ctx.beginPath();
