@@ -21,10 +21,10 @@ let blockList = [];
 let superBlockList = new Array(9);
 let wonSmallBoardList = new Array(9).fill(0);
 let turn = 1; //turn of player X
+let legalMove = 0; //for illegal sound effect
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const playerTurn = document.querySelector("#turn");
-const restart = document.querySelector("#restart");
 restart.addEventListener("click", refreshWindow, false);
 var gameStart = new Audio("sounds/game-start.mp3");
 gameStart.play();
@@ -73,6 +73,7 @@ let block11List = new Array(9),
     ticTacToe(drawLine, cd / 3, 0, (cd * 2) / 3, 6);
     ticTacToe(drawLine, cd / 3, cd / 3, (cd * 2) / 3, 7);
     ticTacToe(drawLine, cd / 3, (cd * 2) / 3, (cd * 2) / 3, 8);
+    canvas.addEventListener("mousedown", illegalMoveSound, false);
   }
 
   resizeCanvas();
@@ -248,7 +249,8 @@ let block11List = new Array(9),
       cellBoardPop("black", cellSize, topLeftX, topLeftY);
     }
     canvas.addEventListener("mousedown", doMouseDown, false);
-    function doMouseDown(event) {
+    function doMouseDown(event){
+      const restart = document.querySelector("#restart");
       if (gameEnd) restart.innerHTML = "NEW GAME";
         else {
           restart.innerHTML = "RESTART";
@@ -377,7 +379,7 @@ let block11List = new Array(9),
           blockList[blockNum][0] = 2;
         }
         temp = 0;
-        moveSound();
+        legalMove = 1;
       } else if (block12) {
         if (turn === 1) {
           drawX(topLeftX + cellSize / 3, topLeftY);
@@ -387,7 +389,7 @@ let block11List = new Array(9),
           blockList[blockNum][1] = 2;
         }
         temp = 1;
-        moveSound();
+        legalMove = 1;
       } else if (block13) {
         if (turn === 1) {
           drawX(topLeftX + (cellSize * 2) / 3, topLeftY);
@@ -397,7 +399,7 @@ let block11List = new Array(9),
           blockList[blockNum][2] = 2;
         }
         temp = 2;
-        moveSound();
+        legalMove = 1;
       } else if (block21) {
         if (turn === 1) {
           drawX(topLeftX, topLeftY + cellSize / 3);
@@ -407,7 +409,7 @@ let block11List = new Array(9),
           blockList[blockNum][3] = 2;
         }
         temp = 3;
-        moveSound();
+        legalMove = 1;
       } else if (block22) {
         if (turn === 1) {
           drawX(topLeftX + cellSize / 3, topLeftY + cellSize / 3);
@@ -417,7 +419,7 @@ let block11List = new Array(9),
           blockList[blockNum][4] = 2;
         }
         temp = 4;
-        moveSound();
+        legalMove = 1;
       } else if (block23) {
         if (turn === 1) {
           drawX(topLeftX + (cellSize * 2) / 3, topLeftY + cellSize / 3);
@@ -427,7 +429,7 @@ let block11List = new Array(9),
           blockList[blockNum][5] = 2;
         }
         temp = 5;
-        moveSound();
+        legalMove = 1;
       } else if (block31) {
         if (turn === 1) {
           drawX(topLeftX, topLeftY + (cellSize * 2) / 3);
@@ -437,7 +439,7 @@ let block11List = new Array(9),
           blockList[blockNum][6] = 2;
         }
         temp = 6;
-        moveSound();
+        legalMove = 1;
       } else if (block32) {
         if (turn === 1) {
           drawX(topLeftX + cellSize / 3, topLeftY + (cellSize * 2) / 3);
@@ -447,7 +449,7 @@ let block11List = new Array(9),
           blockList[blockNum][7] = 2;
         }
         temp = 7;
-        moveSound();
+        legalMove = 1;
       } else if (block33) {
         if (turn === 1) {
           drawX(topLeftX + (cellSize * 2) / 3, topLeftY + (cellSize * 2) / 3);
@@ -457,7 +459,7 @@ let block11List = new Array(9),
           blockList[blockNum][8] = 2;
         }
         temp = 8;
-        moveSound();
+        legalMove = 1;
       }
       if (
         ((temp == blockNum &&
@@ -829,6 +831,19 @@ let block11List = new Array(9),
         );
         move.play();
       }
+    }
+  function illegalMoveSound() {
+      if (
+        legalMove == 0 &&
+        !gameEnd
+        // (blockList[blockNum][k] || superBlockList[blockNum])
+      ) {
+        var illegalMove = new Audio("sounds/illegal-move.mp3");
+        illegalMove.play();
+      } else if (legalMove == 1) {
+        moveSound();
+      }
+      legalMove = 0;
     }
     function wonSmallBoardSound() {
       for (let li = 0; li < 9; li++) {
